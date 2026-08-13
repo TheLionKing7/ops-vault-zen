@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as RedTeamerRouteImport } from './routes/red-teamer'
+import { Route as TrackerRouteImport } from './routes/tracker'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RedTeamerRoute = RedTeamerRouteImport.update({
+  id: '/red-teamer',
+  path: '/red-teamer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrackerRoute = TrackerRouteImport.update({
+  id: '/tracker',
+  path: '/tracker',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/red-teamer': typeof RedTeamerRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/red-teamer': typeof RedTeamerRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/red-teamer': typeof RedTeamerRoute
+  '/tracker': typeof TrackerRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/red-teamer' | '/tracker'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/red-teamer' | '/tracker'
+  id: '__root__' | '/' | '/red-teamer' | '/tracker'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  RedTeamerRoute: typeof RedTeamerRoute
+  TrackerRoute: typeof TrackerRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/red-teamer': {
+      id: '/red-teamer'
+      path: '/red-teamer'
+      fullPath: '/red-teamer'
+      preLoaderRoute: typeof RedTeamerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tracker': {
+      id: '/tracker'
+      path: '/tracker'
+      fullPath: '/tracker'
+      preLoaderRoute: typeof TrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  RedTeamerRoute: RedTeamerRoute,
+  TrackerRoute: TrackerRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

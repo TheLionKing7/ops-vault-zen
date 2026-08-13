@@ -32,8 +32,8 @@ export const Route = createFileRoute("/")({
 function VaultSearch() {
   const [vault, setVault] = useState<Vault>("B");
   const [query, setQuery] = useState("condition precedent jurisdiction originating process");
-  const [court, setCourt] = useState(COURT_LEVELS[0]);
-  const [ratio, setRatio] = useState(RATIO_TAGS[0]);
+  const [court, setCourt] = useState<string>("All Courts");
+  const [ratio, setRatio] = useState<string>("All Ratios");
   const [year, setYear] = useState("Any year");
   const [searching, setSearching] = useState(false);
   const [ran, setRan] = useState(true);
@@ -41,7 +41,7 @@ function VaultSearch() {
   const results = useMemo(
     () =>
       VAULT_RESULTS.filter((r) => r.vault === vault).filter(
-        (r) => court === COURT_LEVELS[0] || r.court === court,
+        (r) => court === "All Courts" || r.court === court,
       ),
     [vault, court],
   );

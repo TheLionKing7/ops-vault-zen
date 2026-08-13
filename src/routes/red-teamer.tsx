@@ -30,7 +30,7 @@ export const Route = createFileRoute("/red-teamer")({
       },
     ],
   }),
-  component: RedTeamer;
+  component: RedTeamer,
 });
 
 type Phase = "idle" | "loaded" | "running" | "done";
